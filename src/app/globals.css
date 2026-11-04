@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #8aa28a;
+    color: #382325;
+  }
+}
+
+/* Custom Clay Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #748e74;
+}
+::-webkit-scrollbar-thumb {
+  background: #526f52;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3e563e;
+}
+
+/* Arch Card Style matching the Clay reference */
+.arch-card {
+  border-radius: 9999px 9999px 1.5rem 1.5rem;
+}
+
+/* Scalloped Wavy Edge (as seen on the wine banner bottom) */
+.scallop-bottom {
+  position: relative;
+}
+.scallop-bottom::after {
+  content: "";
+  position: absolute;
+  bottom: -14px;
+  left: 0;
+  right: 0;
+  height: 15px;
+  background-size: 24px 15px;
+  background-repeat: repeat-x;
+  background-image: radial-gradient(circle at 12px 0, #7a353c 12px, transparent 13px);
+}
+
+.scallop-cream-bottom {
+  position: relative;
+}
+.scallop-cream-bottom::after {
+  content: "";
+  position: absolute;
+  bottom: -12px;
+  left: 0;
+  right: 0;
+  height: 13px;
+  background-size: 20px 13px;
+  background-repeat: repeat-x;
+  background-image: radial-gradient(circle at 10px 0, #fbf4ea 10px, transparent 11px);
+}
+
+/* Wavy Squiggle Accent */
+.squiggle {
+  display: inline-block;
+  width: 32px;
+  height: 8px;
+  background-image: url("data:image/svg+xml,%3Csvg width='32' height='8' viewBox='0 0 32 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 4C4 1 6 1 9 4C12 7 14 7 17 4C20 1 22 1 25 4C28 7 30 7 31 4' stroke='%23382325' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+.squiggle-wine {
+  display: inline-block;
+  width: 32px;
+  height: 8px;
+  background-image: url("data:image/svg+xml,%3Csvg width='32' height='8' viewBox='0 0 32 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 4C4 1 6 1 9 4C12 7 14 7 17 4C20 1 22 1 25 4C28 7 30 7 31 4' stroke='%237a353c' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+/* Print specific styles */
+@media print {
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-only {
+    display: block !important;
+  }
+  .print-card {
+    border: 1px solid #ddd !important;
+    box-shadow: none !important;
+    background: white !important;
+    color: black !important;
+  }
+}
