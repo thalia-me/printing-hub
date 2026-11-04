@@ -292,6 +292,8 @@ export default function HomePage() {
           size: f.size,
           type: f.type,
           dataUrl: f.dataUrl || null,
+          storagePath: f.storagePath || undefined,
+          storage: f.storage || 'supabase',
         })),
       };
 
