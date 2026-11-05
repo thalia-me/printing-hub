@@ -51,6 +51,39 @@ const BUNDLE_OPTIONS = [
   { id: 'Wide Instax (24 pcs - ₱190)' as const, label: 'Wide Instax (24 pcs)', price: '₱190.00', desc: '24 pieces wide instax collection' },
 ];
 
+const VALUE_PACK_FORMATS = [
+  {
+    type: 'wallet',
+    title: 'Wallet Size',
+    dimensions: '2.5 × 3.5 inches',
+    sampleImage: '/images/samples/wallet-size.png',
+    tagline: 'Standard pocket size collection',
+    defaultBundle: 'Wallet Size (9 pcs - ₱60)' as const,
+    priceGuide: '9 pcs = ₱60 • 18 pcs = ₱120 • 27 pcs = ₱170',
+    matches: (id: string) => id.startsWith('Wallet Size'),
+  },
+  {
+    type: 'mini_instax',
+    title: 'Mini Instax',
+    dimensions: '2.1 × 3.4 inches',
+    sampleImage: '/images/samples/mini-instax.png',
+    tagline: 'Classic vintage white frame',
+    defaultBundle: 'Mini Instax (9 pcs - ₱75)' as const,
+    priceGuide: '9 pcs = ₱75 • 18 pcs = ₱145 • 27 pcs = ₱220',
+    matches: (id: string) => id.startsWith('Mini Instax'),
+  },
+  {
+    type: 'wide_instax',
+    title: 'Wide Instax',
+    dimensions: '3.4 × 4.2 inches',
+    sampleImage: '/images/samples/wide-instax.png',
+    tagline: 'Wide panoramic polaroid ratio',
+    defaultBundle: 'Wide Instax (8 pcs - ₱65)' as const,
+    priceGuide: '8 pcs = ₱65 • 16 pcs = ₱125 • 24 pcs = ₱190',
+    matches: (id: string) => id.startsWith('Wide Instax'),
+  },
+];
+
 const PHOTOSTRIP_STYLES = [
   { id: 'S1: Vintage Star Frame (3 photos)' as const, code: 'S1', title: 'S1: Vintage Star Frame', desc: 'Retro cream background with red star accents (3 photos)', pricing: '1pc = ₱50 • 3pcs = ₱120 • 6pcs = ₱200', slots: 3 },
   { id: 'S2: Film Strip Black Border (4 photos)' as const, code: 'S2', title: 'S2: Film Strip Frame', desc: 'Cinematic black 35mm film border (4 photos)', pricing: '2pcs = ₱75 • 4pcs = ₱120 • 6pcs = ₱180', slots: 4 },
@@ -224,27 +257,98 @@ export default function PhotoServiceForm({
       {/* A. BUNDLED PACKS                                                  */}
       {/* ================================================================ */}
       {spec.category === 'Bundled Packs (Wallet / Instax)' && (
-        <div className="bg-clay-cream rounded-4xl p-6 border border-clay-paper shadow-clay space-y-4">
-          <label className="font-serif font-bold text-sm text-clay-wine block">Select Value Photo Bundle</label>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-            {BUNDLE_OPTIONS.map((pkg) => {
-              const isSelected = spec.bundlePack === pkg.id;
-              return (
-                <button
-                  key={pkg.id}
-                  type="button"
-                  onClick={() => onSpecChange({ ...spec, bundlePack: pkg.id })}
-                  className={`p-3.5 rounded-2xl border text-left transition-all ${isSelected ? 'border-clay-wine bg-clay-wine text-clay-milk shadow-sm' : 'border-clay-paper bg-clay-milk text-clay-brown hover:bg-clay-paper'}`}
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold">{pkg.label}</span>
-                    {isSelected && <Check className="w-3.5 h-3.5 text-clay-mustard" />}
-                  </div>
-                  <p className="text-[10px] opacity-80 mt-1 leading-tight">{pkg.desc}</p>
-                  <p className={`text-xs font-mono font-bold mt-2 ${isSelected ? 'text-clay-mustard' : 'text-clay-terracotta'}`}>{pkg.price}</p>
-                </button>
-              );
-            })}
+        <div className="space-y-5">
+          {/* Visual Format Preview with Real Samples */}
+          <div className="bg-clay-cream rounded-4xl p-5 sm:p-6 border border-clay-paper shadow-clay space-y-3">
+            <div className="flex items-center justify-between">
+              <div>
+                <label className="font-serif font-bold text-sm text-clay-wine block">
+                  1. Visual Format Preview & Samples
+                </label>
+                <p className="text-xs text-clay-brown-muted">
+                  Tap a format to inspect the actual print size and style
+                </p>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+              {VALUE_PACK_FORMATS.map((fmt) => {
+                const isActive = spec.bundlePack ? fmt.matches(spec.bundlePack) : fmt.type === 'wallet';
+                return (
+                  <button
+                    key={fmt.type}
+                    type="button"
+                    onClick={() => onSpecChange({ ...spec, bundlePack: fmt.defaultBundle })}
+                    className={`p-3.5 rounded-3xl border text-left transition-all flex flex-col justify-between group ${
+                      isActive
+                        ? 'border-clay-terracotta bg-clay-pink-soft ring-2 ring-clay-terracotta/40 shadow-sm scale-[1.01]'
+                        : 'border-clay-paper bg-clay-milk hover:border-clay-terracotta/50'
+                    }`}
+                  >
+                    <div>
+                      {/* Real Sample Photo Preview */}
+                      <div className="relative w-full h-36 sm:h-44 rounded-2xl overflow-hidden bg-clay-paper/40 mb-3 border border-clay-paper/80 flex items-center justify-center">
+                        <Image
+                          src={fmt.sampleImage}
+                          alt={fmt.title}
+                          fill
+                          className="object-contain p-1.5 transition-transform group-hover:scale-105"
+                          sizes="(max-width: 640px) 100vw, 33vw"
+                        />
+                      </div>
+
+                      <div className="flex items-center justify-between">
+                        <span className="font-serif font-bold text-xs text-clay-wine">
+                          {fmt.title}
+                        </span>
+                        {isActive && <Check className="w-3.5 h-3.5 text-clay-terracotta" />}
+                      </div>
+                      <p className="text-[10px] text-clay-brown-muted mt-0.5">{fmt.dimensions}</p>
+                      <p className="text-[11px] text-clay-brown-muted mt-1 leading-tight">{fmt.tagline}</p>
+                    </div>
+
+                    <div className="mt-3 pt-2 border-t border-clay-paper/60">
+                      <p className="text-[10px] font-mono font-bold text-clay-terracotta">
+                        {fmt.priceGuide}
+                      </p>
+                    </div>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
+          {/* Package Selection */}
+          <div className="bg-clay-cream rounded-4xl p-5 sm:p-6 border border-clay-paper shadow-clay space-y-3">
+            <label className="font-serif font-bold text-sm text-clay-wine block">
+              2. Select Quantity Pack & Price
+            </label>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
+              {BUNDLE_OPTIONS.map((pkg) => {
+                const isSelected = spec.bundlePack === pkg.id;
+                return (
+                  <button
+                    key={pkg.id}
+                    type="button"
+                    onClick={() => onSpecChange({ ...spec, bundlePack: pkg.id })}
+                    className={`p-3.5 rounded-2xl border text-left transition-all ${
+                      isSelected
+                        ? 'border-clay-wine bg-clay-wine text-clay-milk shadow-sm'
+                        : 'border-clay-paper bg-clay-milk text-clay-brown hover:bg-clay-paper'
+                    }`}
+                  >
+                    <div className="flex items-center justify-between">
+                      <span className="text-xs font-bold">{pkg.label}</span>
+                      {isSelected && <Check className="w-3.5 h-3.5 text-clay-mustard" />}
+                    </div>
+                    <p className="text-[10px] opacity-80 mt-1 leading-tight">{pkg.desc}</p>
+                    <p className={`text-xs font-mono font-bold mt-2 ${isSelected ? 'text-clay-mustard' : 'text-clay-terracotta'}`}>
+                      {pkg.price}
+                    </p>
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
       )}

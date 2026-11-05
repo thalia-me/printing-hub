@@ -356,14 +356,46 @@ export default function HomePage() {
 
   return (
     <div className="space-y-6 pb-16">
-      {/* Playful Brand Intro Tagline */}
-      <div className="text-center space-y-1 mb-2">
-        <h2 className="font-serif font-black text-2xl sm:text-3xl text-clay-milk tracking-tight">
-          Print Made Playful 🌸
-        </h2>
-        <p className="text-xs sm:text-sm text-clay-milk/90 font-medium">
-          Handmade paper goods & studio prints for your colorful moments.
-        </p>
+      {/* Warm Owner Intro & Trust Banner */}
+      <div className="bg-clay-cream/90 backdrop-blur-sm p-4 sm:p-5 rounded-4xl border border-clay-paper shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="flex items-center gap-3.5 text-center sm:text-left">
+          <div className="relative w-12 h-12 rounded-full overflow-hidden border-2 border-clay-pink bg-white flex-shrink-0 shadow-sm hidden xs:block">
+            <Image
+              src="/images/logo.jpg"
+              alt="Dxlea Printing Services"
+              fill
+              className="object-contain p-0.5"
+            />
+          </div>
+          <div>
+            <div className="flex items-center justify-center sm:justify-start gap-2">
+              <span className="font-serif font-black text-base text-clay-wine tracking-tight">
+                Welcome to Dxlea Printing! ✨
+              </span>
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-clay-sage/30 text-clay-wine border border-clay-sage/40">
+                Naga City
+              </span>
+            </div>
+            <p className="text-xs text-clay-brown-muted mt-0.5 leading-snug">
+              Every photo, document, and print craft is checked with care right here in Villa Grande Homes. Send files ahead, skip the line, and pick up when ready!
+            </p>
+          </div>
+        </div>
+
+        {/* Facebook Social Proof Badge */}
+        <a
+          href="https://www.facebook.com/Dxleaprinting/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex-shrink-0 inline-flex items-center gap-2 px-4 py-2 rounded-full bg-clay-wine hover:bg-clay-wine-dark text-clay-milk text-xs font-serif font-bold shadow-sm transition-all hover:scale-105 active:scale-95"
+          title="See community reviews and work on Facebook"
+        >
+          <svg className="w-3.5 h-3.5 fill-current text-clay-pink" viewBox="0 0 24 24">
+            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+          </svg>
+          <span>Reviews & Updates</span>
+          <span className="text-[10px] text-clay-mustard">↗</span>
+        </a>
       </div>
 
       {/* Main Stepper Shell */}
