@@ -44,16 +44,12 @@ export const DXLEA_PHOTOSTRIP_RATES = {
   'S3': { '1 pc': 50, '3 pcs': 120, '6 pcs': 200 },
 };
 
-// Standard Photo & Instax Sizes
-export const DXLEA_STANDARD_PHOTO_RATES = {
-  '2R (Wallet Size)': 10,
-  '3R': 15,
-  '4R': 20,
-  '5R': 35,
-  '6R': 50,
-  '8R': 85,
-  'A4': 110,
-  'Polaroid / Instax': 25,
+// Standard Photo Sizes
+export const DXLEA_STANDARD_PHOTO_RATES: Record<string, number> = {
+  '3R': 25,
+  '4R': 35,
+  '5R': 50,
+  'A4': 70,
 };
 
 // Official Dxlea Document & Photocopy Rate Matrix
@@ -148,7 +144,7 @@ export function calculatePhotoPrice(spec: PhotoPrintSpec): number {
 
   // Standard & Instax Inspired
   const size = spec.size || '4R';
-  const unitPrice = DXLEA_STANDARD_PHOTO_RATES[size] || 20;
+  const unitPrice = DXLEA_STANDARD_PHOTO_RATES[size] || 35;
   return unitPrice * copies;
 }
 

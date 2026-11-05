@@ -10,8 +10,8 @@ export type PhotoPrintCategory =
 
 export interface PhotoPrintSpec {
   category: PhotoPrintCategory;
-  // Standard sizes
-  size?: '2R (Wallet Size)' | '3R' | '4R' | '5R' | '6R' | '8R' | 'A4' | 'Polaroid / Instax';
+  // Standard sizes (Active: 3R, 4R, 5R, A4; others preserved for legacy order records)
+  size?: '3R' | '4R' | '5R' | 'A4' | '2R (Wallet Size)' | '6R' | '8R' | 'Polaroid / Instax';
   // Bundled pack selection
   bundlePack?: 
     | 'Wide Instax (8 pcs - ₱65)'

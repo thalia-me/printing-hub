@@ -36,7 +36,7 @@ interface PhotoServiceFormProps {
 const CATEGORIES: Array<{ id: PhotoPrintCategory; title: string; subtitle: string; icon: any }> = [
   { id: 'Bundled Packs (Wallet / Instax)', title: 'Value Packs', subtitle: 'Wallet size & Instax sets (8 to 27 pcs)', icon: Grid },
   { id: 'Photostrips (S1, S2, S3)', title: 'Photostrips', subtitle: 'S1 Star Frame, S2 Film Strip, S3 Movie Ticket', icon: Film },
-  { id: 'Standard & Instax Inspired', title: 'Standard & Frames', subtitle: '2R, 3R, 4R, 5R, 6R, 8R, A4 & Polaroid', icon: ImageIcon },
+  { id: 'Standard & Instax Inspired', title: 'Standard & Frames', subtitle: '3R, 4R, 5R & A4 Frame Sizes', icon: ImageIcon },
 ];
 
 const BUNDLE_OPTIONS = [
@@ -160,14 +160,10 @@ const PHOTOSTRIP_LAYOUTS = [
 ];
 
 const STANDARD_SIZES: Array<{ id: NonNullable<PhotoPrintSpec['size']>; label: string; desc: string; price: string }> = [
-  { id: '2R (Wallet Size)', label: '2R (Wallet Size)', desc: '2.5 x 3.5 in', price: '₱10.00' },
-  { id: '3R', label: '3R Photo', desc: '3.5 x 5.0 in', price: '₱15.00' },
-  { id: '4R', label: '4R (Standard)', desc: '4.0 x 6.0 in (Popular)', price: '₱20.00' },
-  { id: '5R', label: '5R Photo', desc: '5.0 x 7.0 in', price: '₱35.00' },
-  { id: '6R', label: '6R Photo', desc: '6.0 x 8.0 in', price: '₱50.00' },
-  { id: '8R', label: '8R Frame Size', desc: '8.0 x 10.0 in', price: '₱85.00' },
-  { id: 'A4', label: 'A4 Full Page', desc: '8.27 x 11.69 in', price: '₱110.00' },
-  { id: 'Polaroid / Instax', label: 'Instax Single', desc: 'Polaroid style single', price: '₱25.00' },
+  { id: '3R', label: '3R Photo', desc: '3.5 × 5.0 in', price: '₱25.00' },
+  { id: '4R', label: '4R (Standard)', desc: '4.0 × 6.0 in (Popular)', price: '₱35.00' },
+  { id: '5R', label: '5R Photo', desc: '5.0 × 7.0 in', price: '₱50.00' },
+  { id: 'A4', label: 'A4 Full Page', desc: '8.27 × 11.69 in', price: '₱70.00' },
 ];
 
 // Sample images for strip slot previews when user hasn't uploaded yet

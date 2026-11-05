@@ -489,9 +489,9 @@ export default function HomePage() {
                 {
                   id: 'PHOTO' as ServiceType,
                   title: 'Photo Printing',
-                  subtitle: 'Value wallet packs, photostrips & standard glossy or matte frame sizes (2R to A4)',
-                  features: ['Wallet & Instax Packs', 'Photostrips (S1, S2, S3)', 'Frames 2R to A4'],
-                  priceBadge: 'From ₱10.00',
+                  subtitle: 'Value wallet packs, photostrips & standard glossy or matte frame sizes (3R to A4)',
+                  features: ['Wallet & Instax Packs', 'Photostrips (S1, S2, S3)', 'Frames 3R to A4'],
+                  priceBadge: 'From ₱25.00',
                   icon: Camera,
                   colorClass: 'hover:border-clay-terracotta',
                   selectedClass: 'border-clay-terracotta bg-clay-pink-soft ring-4 ring-clay-terracotta/25 shadow-lg scale-[1.02]',
