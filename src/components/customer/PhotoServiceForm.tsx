@@ -286,15 +286,52 @@ export default function PhotoServiceForm({
                     }`}
                   >
                     <div>
-                      {/* Real Sample Photo Preview */}
-                      <div className="relative w-full h-36 sm:h-44 rounded-2xl overflow-hidden bg-clay-paper/40 mb-3 border border-clay-paper/80 flex items-center justify-center">
-                        <Image
-                          src={fmt.sampleImage}
-                          alt={fmt.title}
-                          fill
-                          className="object-contain p-1.5 transition-transform group-hover:scale-105"
-                          sizes="(max-width: 640px) 100vw, 33vw"
-                        />
+                      {/* Realistic Physical Photo Print Mockup */}
+                      <div className="w-full h-44 rounded-2xl bg-gradient-to-b from-clay-paper/30 to-clay-paper/70 mb-3 border border-clay-paper/80 flex items-center justify-center p-3 relative overflow-hidden">
+                        {fmt.type === 'wallet' && (
+                          <div className="relative w-28 h-36 rounded-[3px] shadow-[0_10px_25px_-5px_rgba(50,25,30,0.25)] ring-1 ring-black/10 overflow-hidden bg-white p-1 -rotate-1 group-hover:rotate-0 transition-transform duration-300">
+                            <div className="relative w-full h-full rounded-[2px] overflow-hidden">
+                              <Image
+                                src={fmt.sampleImage}
+                                alt={fmt.title}
+                                fill
+                                className="object-cover"
+                                sizes="120px"
+                              />
+                              <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/15 to-white/30 pointer-events-none" />
+                            </div>
+                          </div>
+                        )}
+
+                        {fmt.type === 'mini_instax' && (
+                          <div className="relative w-24 h-36 rounded-[3px] shadow-[0_10px_25px_-5px_rgba(50,25,30,0.25)] ring-1 ring-black/10 overflow-hidden bg-white p-1.5 pb-6 rotate-1 group-hover:rotate-0 transition-transform duration-300">
+                            <div className="relative w-full h-full rounded-[2px] overflow-hidden">
+                              <Image
+                                src={fmt.sampleImage}
+                                alt={fmt.title}
+                                fill
+                                className="object-cover"
+                                sizes="100px"
+                              />
+                              <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-white/25 pointer-events-none" />
+                            </div>
+                          </div>
+                        )}
+
+                        {fmt.type === 'wide_instax' && (
+                          <div className="relative w-36 h-28 rounded-[3px] shadow-[0_10px_25px_-5px_rgba(50,25,30,0.25)] ring-1 ring-black/10 overflow-hidden bg-white p-1.5 pb-5 -rotate-1 group-hover:rotate-0 transition-transform duration-300">
+                            <div className="relative w-full h-full rounded-[2px] overflow-hidden">
+                              <Image
+                                src={fmt.sampleImage}
+                                alt={fmt.title}
+                                fill
+                                className="object-cover"
+                                sizes="150px"
+                              />
+                              <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-white/25 pointer-events-none" />
+                            </div>
+                          </div>
+                        )}
                       </div>
 
                       <div className="flex items-center justify-between">
