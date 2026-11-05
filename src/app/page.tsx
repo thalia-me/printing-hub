@@ -100,7 +100,7 @@ export default function HomePage() {
   });
 
   const [idSpec, setIdSpec] = useState<IdPictureSpec>({
-    packageType: 'Package 1 (2pcs 2x2 & 4pcs 1x1) - ₱50',
+    packageType: 'Package 4 (6pcs 2x2) - ₱50',
     backgroundColor: 'White',
     changeAttire: false,
     attireType: 'Formal Suit',

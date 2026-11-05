@@ -66,7 +66,7 @@ export default function IdPictureForm({
 
   // Use dataUrl (which holds both object URLs and uploaded URLs)
   const uploadedPhoto = files[0];
-  const photoSrc = uploadedPhoto?.dataUrl || '/images/sample-id.png';
+  const photoSrc = uploadedPhoto?.dataUrl || '/images/sample-id.jpg';
 
   const currentBgMeta = BG_COLORS.find(b => b.id === spec.backgroundColor) || BG_COLORS[0];
 
@@ -143,39 +143,145 @@ export default function IdPictureForm({
               <span className="font-mono text-[11px] opacity-75">Dxlea Rush ID Print Sheet</span>
             </div>
 
-            {/* Simulated Print Paper */}
-            <div
-              className="bg-white rounded-2xl p-4 border border-dashed border-clay-brown/30 shadow-inner flex flex-wrap gap-2.5 justify-center items-center min-h-[200px]"
-              style={{ backgroundColor: '#FAFAF7', backgroundImage: 'radial-gradient(#E8E5DF 1px, transparent 1px)', backgroundSize: '16px 16px' }}
-            >
-              {/* 2×2 slots */}
-              {Array.from({ length: currentPkg.counts.twoByTwo }).map((_, i) => (
-                <div key={`2x2-${i}`} className="relative w-20 h-20 rounded-md border-2 border-dashed border-clay-brown/40 shadow-sm overflow-hidden" style={{ backgroundColor: currentBgMeta.hexColor }}>
-                  <Image src={photoSrc} alt="2x2 ID" fill className="object-cover object-top" sizes="80px" />
-                  <span className="absolute bottom-0 inset-x-0 bg-black/60 text-white text-[9px] font-mono text-center py-0.5">2″×2″</span>
-                </div>
-              ))}
-              {/* Passport slots */}
-              {Array.from({ length: currentPkg.counts.passport }).map((_, i) => (
-                <div key={`pass-${i}`} className="relative w-16 h-[88px] rounded-md border-2 border-dashed border-clay-brown/40 shadow-sm overflow-hidden" style={{ backgroundColor: currentBgMeta.hexColor }}>
-                  <Image src={photoSrc} alt="Passport" fill className="object-cover object-top" sizes="70px" />
-                  <span className="absolute bottom-0 inset-x-0 bg-black/60 text-white text-[8px] font-mono text-center py-0.5">Passport</span>
-                </div>
-              ))}
-              {/* 1.5×1.5 slots */}
-              {Array.from({ length: currentPkg.counts.oneHalf }).map((_, i) => (
-                <div key={`1h-${i}`} className="relative w-16 h-16 rounded-md border-2 border-dashed border-clay-brown/40 shadow-sm overflow-hidden" style={{ backgroundColor: currentBgMeta.hexColor }}>
-                  <Image src={photoSrc} alt="1.5x1.5" fill className="object-cover object-top" sizes="64px" />
-                  <span className="absolute bottom-0 inset-x-0 bg-black/60 text-white text-[8px] font-mono text-center py-0.5">1.5″×1.5″</span>
-                </div>
-              ))}
-              {/* 1×1 slots */}
-              {Array.from({ length: currentPkg.counts.oneByOne }).map((_, i) => (
-                <div key={`1x1-${i}`} className="relative w-12 h-12 rounded-md border-2 border-dashed border-clay-brown/40 shadow-sm overflow-hidden" style={{ backgroundColor: currentBgMeta.hexColor }}>
-                  <Image src={photoSrc} alt="1x1" fill className="object-cover object-top" sizes="48px" />
-                  <span className="absolute bottom-0 inset-x-0 bg-black/60 text-white text-[7px] font-mono text-center py-0.5">1″×1″</span>
-                </div>
-              ))}
+            {/* Realistic ID Print Sheet matching photo studio cutlines */}
+            <div className="bg-white rounded-2xl p-3 sm:p-4 border border-zinc-200 shadow-sm max-w-sm mx-auto">
+              <div className="flex items-center justify-between pb-1.5 mb-2.5 border-b border-zinc-200 text-[10px] text-zinc-500 font-mono">
+                <span className="font-bold text-clay-wine">DXLEA STUDIO • {currentPkg.pkgNum.toUpperCase()}</span>
+                <span>{currentPkg.title}</span>
+                <span className="text-[9px] px-1.5 py-0.5 rounded bg-zinc-100 font-bold text-zinc-600">GLOSSY</span>
+              </div>
+
+              {/* The exact border cutline grid */}
+              <div className="border border-black bg-white overflow-hidden shadow-xs">
+                {/* Package 4 (6pcs 2x2) - EXACT match to user reference screenshot */}
+                {spec.packageType === 'Package 4 (6pcs 2x2) - ₱50' && (
+                  <div className="grid grid-cols-3 divide-x divide-y divide-black">
+                    {Array.from({ length: 6 }).map((_, i) => (
+                      <div key={`p4-${i}`} className="relative aspect-square overflow-hidden bg-white">
+                        <Image src={photoSrc} alt="2x2 ID Photo" fill className="object-cover object-top" sizes="120px" priority />
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Package 1 (2pcs 2x2 & 4pcs 1x1) */}
+                {spec.packageType === 'Package 1 (2pcs 2x2 & 4pcs 1x1) - ₱50' && (
+                  <div className="divide-y divide-black">
+                    <div className="grid grid-cols-2 divide-x divide-black">
+                      {[0, 1].map((i) => (
+                        <div key={`p1-2x2-${i}`} className="relative aspect-square overflow-hidden bg-white">
+                          <Image src={photoSrc} alt="2x2 ID Photo" fill className="object-cover object-top" sizes="160px" priority />
+                        </div>
+                      ))}
+                    </div>
+                    <div className="grid grid-cols-4 divide-x divide-black">
+                      {[0, 1, 2, 3].map((i) => (
+                        <div key={`p1-1x1-${i}`} className="relative aspect-square overflow-hidden bg-white">
+                          <Image src={photoSrc} alt="1x1 ID Photo" fill className="object-cover object-top" sizes="80px" priority />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Package 2 (4pcs 2x2 & 3pcs 1x1) */}
+                {spec.packageType === 'Package 2 (4pcs 2x2 & 3pcs 1x1) - ₱50' && (
+                  <div className="divide-y divide-black">
+                    <div className="grid grid-cols-2 divide-x divide-y divide-black">
+                      {[0, 1, 2, 3].map((i) => (
+                        <div key={`p2-2x2-${i}`} className="relative aspect-square overflow-hidden bg-white">
+                          <Image src={photoSrc} alt="2x2 ID Photo" fill className="object-cover object-top" sizes="150px" priority />
+                        </div>
+                      ))}
+                    </div>
+                    <div className="grid grid-cols-3 divide-x divide-black">
+                      {[0, 1, 2].map((i) => (
+                        <div key={`p2-1x1-${i}`} className="relative aspect-square overflow-hidden bg-white">
+                          <Image src={photoSrc} alt="1x1 ID Photo" fill className="object-cover object-top" sizes="100px" priority />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Package 3 (8pcs 1x1) */}
+                {spec.packageType === 'Package 3 (8pcs 1x1) - ₱50' && (
+                  <div className="grid grid-cols-4 divide-x divide-y divide-black">
+                    {Array.from({ length: 8 }).map((_, i) => (
+                      <div key={`p3-${i}`} className="relative aspect-square overflow-hidden bg-white">
+                        <Image src={photoSrc} alt="1x1 ID Photo" fill className="object-cover object-top" sizes="80px" priority />
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Package 5 (6pcs Passport Size) */}
+                {spec.packageType === 'Package 5 (6pcs Passport Size) - ₱65' && (
+                  <div className="grid grid-cols-3 divide-x divide-y divide-black">
+                    {Array.from({ length: 6 }).map((_, i) => (
+                      <div key={`p5-${i}`} className="relative aspect-[35/45] overflow-hidden bg-white">
+                        <Image src={photoSrc} alt="Passport ID Photo" fill className="object-cover object-top" sizes="120px" priority />
+                      </div>
+                    ))}
+                  </div>
+                )}
+
+                {/* Package 6 (4pcs Passport & 2pcs 2x2) */}
+                {spec.packageType === 'Package 6 (4pcs Passport Size & 2pcs 2x2) - ₱60' && (
+                  <div className="divide-y divide-black">
+                    <div className="grid grid-cols-4 divide-x divide-black">
+                      {[0, 1, 2, 3].map((i) => (
+                        <div key={`p6-pass-${i}`} className="relative aspect-[35/45] overflow-hidden bg-white">
+                          <Image src={photoSrc} alt="Passport ID Photo" fill className="object-cover object-top" sizes="85px" priority />
+                        </div>
+                      ))}
+                    </div>
+                    <div className="grid grid-cols-2 divide-x divide-black">
+                      {[0, 1].map((i) => (
+                        <div key={`p6-2x2-${i}`} className="relative aspect-square overflow-hidden bg-white">
+                          <Image src={photoSrc} alt="2x2 ID Photo" fill className="object-cover object-top" sizes="160px" priority />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Package 7 (3pcs Passport & 6pcs 1x1) */}
+                {spec.packageType === 'Package 7 (3pcs Passport Size & 6pcs 1x1) - ₱75' && (
+                  <div className="divide-y divide-black">
+                    <div className="grid grid-cols-3 divide-x divide-black">
+                      {[0, 1, 2].map((i) => (
+                        <div key={`p7-pass-${i}`} className="relative aspect-[35/45] overflow-hidden bg-white">
+                          <Image src={photoSrc} alt="Passport ID Photo" fill className="object-cover object-top" sizes="110px" priority />
+                        </div>
+                      ))}
+                    </div>
+                    <div className="grid grid-cols-6 divide-x divide-black">
+                      {[0, 1, 2, 3, 4, 5].map((i) => (
+                        <div key={`p7-1x1-${i}`} className="relative aspect-square overflow-hidden bg-white">
+                          <Image src={photoSrc} alt="1x1 ID Photo" fill className="object-cover object-top" sizes="60px" priority />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Package 8 (6pcs 1.5x1.5) */}
+                {spec.packageType === 'Package 8 (6pcs 1.5x1.5) - ₱50' && (
+                  <div className="grid grid-cols-3 divide-x divide-y divide-black">
+                    {Array.from({ length: 6 }).map((_, i) => (
+                      <div key={`p8-${i}`} className="relative aspect-square overflow-hidden bg-white">
+                        <Image src={photoSrc} alt="1.5x1.5 ID Photo" fill className="object-cover object-top" sizes="120px" priority />
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+
+              <div className="pt-2 mt-2.5 border-t border-dashed border-zinc-200 flex items-center justify-between text-[9px] text-zinc-400 font-mono">
+                <span>✂ SOLID PRE-CUT STUDIO BORDERS</span>
+                <span>260GSM PREMIUM GLOSSY</span>
+              </div>
             </div>
 
             {/* Status Ribbon */}
