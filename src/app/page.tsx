@@ -371,11 +371,6 @@ export default function HomePage() {
         
         {/* Scalloped Studio Banner */}
         <section className="relative overflow-visible rounded-4xl bg-clay-wine text-clay-milk p-6 sm:p-8 text-center space-y-3 shadow-clay scallop-bottom pb-8">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-clay-milk/15 border border-clay-milk/25 text-clay-milk text-xs font-bold uppercase tracking-wider">
-            <Sparkles className="w-3.5 h-3.5 text-clay-mustard" />
-            <span>Dxlea Studio • Est. 2023</span>
-          </div>
-
           <h1 className="font-serif font-black text-2xl sm:text-3xl lg:text-4xl tracking-tight leading-tight max-w-2xl mx-auto">
             Step-by-Step Print Order
           </h1>
