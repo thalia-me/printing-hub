@@ -85,9 +85,78 @@ const VALUE_PACK_FORMATS = [
 ];
 
 const PHOTOSTRIP_STYLES = [
-  { id: 'S1: Vintage Star Frame (3 photos)' as const, code: 'S1', title: 'S1: Vintage Star Frame', desc: 'Retro cream background with red star accents (3 photos)', pricing: '1pc = ₱50 • 3pcs = ₱120 • 6pcs = ₱200', slots: 3 },
-  { id: 'S2: Film Strip Black Border (4 photos)' as const, code: 'S2', title: 'S2: Film Strip Frame', desc: 'Cinematic black 35mm film border (4 photos)', pricing: '2pcs = ₱75 • 4pcs = ₱120 • 6pcs = ₱180', slots: 4 },
-  { id: 'S3: Movie Ticket Header (3 photos)' as const, code: 'S3', title: 'S3: Night Movie Ticket', desc: 'Vintage cinema ticket header + barcode (3 photos)', pricing: '1pc = ₱50 • 3pcs = ₱120 • 6pcs = ₱200', slots: 3 },
+  { 
+    id: 'S1: Vintage Star Frame (3 photos)' as const, 
+    code: 'S1', 
+    title: 'S1: Vintage Star Frame', 
+    desc: 'Retro cream with red star accents & "dream a little" text (3 photos)', 
+    pricing: '1pc = ₱50 • 3pcs = ₱120 • 6pcs = ₱200', 
+    slots: 3,
+    sampleImage: '/images/samples/strip-s1.jpg',
+  },
+  { 
+    id: 'S2: Film Strip Black Border (4 photos)' as const, 
+    code: 'S2', 
+    title: 'S2: 35mm Film Strip Frame', 
+    desc: 'Cinematic black 35mm film border with sprocket numbers (4 photos)', 
+    pricing: '2pcs = ₱75 • 4pcs = ₱120 • 6pcs = ₱180', 
+    slots: 4,
+    sampleImage: '/images/samples/strip-s2.jpg',
+  },
+  { 
+    id: 'S3: Movie Ticket Header (3 photos)' as const, 
+    code: 'S3', 
+    title: 'S3: Night Movie Ticket', 
+    desc: 'Vintage cinema ticket header + barcode & photo box frame (3 photos)', 
+    pricing: '1pc = ₱50 • 3pcs = ₱120 • 6pcs = ₱200', 
+    slots: 3,
+    sampleImage: '/images/samples/strip-s3.jpg',
+  },
+];
+
+const PHOTOSTRIP_LAYOUTS = [
+  {
+    id: '4-Photo Vertical' as const,
+    title: '4-Photo Strip',
+    desc: 'Classic 4-cut vertical strip (Most popular)',
+    slots: 4,
+    badge: 'Popular',
+  },
+  {
+    id: '3-Photo Vertical' as const,
+    title: '3-Photo Strip',
+    desc: 'Classic 3-cut vertical strip with bottom space',
+    slots: 3,
+    badge: 'Classic',
+  },
+  {
+    id: '5-Photo Vertical' as const,
+    title: '5-Photo Strip',
+    desc: 'Full-length 5-cut vertical photostrip',
+    slots: 5,
+    badge: 'Story',
+  },
+  {
+    id: '2x2 Grid Collage' as const,
+    title: '2×2 Grid Collage',
+    desc: '4 photos in a balanced square grid format',
+    slots: 4,
+    badge: 'Collage',
+  },
+  {
+    id: '3-Photo Wide Collage' as const,
+    title: '3-Photo Wide Grid',
+    desc: '1 wide feature photo + 2 bottom snapshots',
+    slots: 3,
+    badge: 'Feature',
+  },
+  {
+    id: '2-Photo Split Frame' as const,
+    title: '2-Photo Dual Split',
+    desc: 'Side-by-side or stacked dual photo frame',
+    slots: 2,
+    badge: 'Duo',
+  },
 ];
 
 const STANDARD_SIZES: Array<{ id: NonNullable<PhotoPrintSpec['size']>; label: string; desc: string; price: string }> = [
@@ -118,7 +187,8 @@ export default function PhotoServiceForm({
 
   const currentTotal = calculatePhotoPrice(spec);
   const currentStripStyle = PHOTOSTRIP_STYLES.find(s => s.id === spec.photostripStyle) || PHOTOSTRIP_STYLES[0];
-  const requiredSlots = currentStripStyle.slots;
+  const chosenLayout = PHOTOSTRIP_LAYOUTS.find(l => l.id === spec.photostripLayout);
+  const requiredSlots = chosenLayout ? chosenLayout.slots : currentStripStyle.slots;
 
   // Handle batch upload for all photostrip slots
   const handleBatchUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -395,9 +465,11 @@ export default function PhotoServiceForm({
       {/* ================================================================ */}
       {spec.category === 'Photostrips (S1, S2, S3)' && (
         <div className="space-y-6">
-          {/* Strip Style Selector */}
-          <div className="bg-clay-cream rounded-4xl p-6 border border-clay-paper shadow-clay space-y-4">
-            <label className="font-serif font-bold text-sm text-clay-wine block">1. Select Photostrip Style Frame</label>
+          {/* Strip Style Selector with REAL TEMPLATE SAMPLES */}
+          <div className="bg-clay-cream rounded-4xl p-5 sm:p-6 border border-clay-paper shadow-clay space-y-4">
+            <label className="font-bold text-sm text-clay-wine block">
+              1. Select Photostrip Style Frame
+            </label>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
               {PHOTOSTRIP_STYLES.map((st) => {
                 const isSelected = spec.photostripStyle === st.id;
@@ -406,17 +478,106 @@ export default function PhotoServiceForm({
                     key={st.id}
                     type="button"
                     onClick={() => onSpecChange({ ...spec, photostripStyle: st.id, photostripQuantity: st.code === 'S2' ? '2 pcs' : '1 pc' })}
-                    className={`p-4 rounded-3xl border text-left transition-all ${isSelected ? 'border-clay-terracotta bg-clay-pink-soft shadow-sm ring-2 ring-clay-terracotta/40 scale-[1.01]' : 'border-clay-paper bg-clay-milk hover:border-clay-terracotta/40'}`}
+                    className={`p-3.5 rounded-3xl border text-left transition-all flex flex-col justify-between group ${
+                      isSelected
+                        ? 'border-clay-terracotta bg-clay-pink-soft shadow-sm ring-2 ring-clay-terracotta/40 scale-[1.01]'
+                        : 'border-clay-paper bg-clay-milk hover:border-clay-terracotta/40'
+                    }`}
                   >
-                    <div className="flex items-center justify-between mb-1.5">
-                      <span className="font-serif font-bold text-xs text-clay-wine">{st.title}</span>
-                      {isSelected && <Check className="w-3.5 h-3.5 text-clay-terracotta" />}
+                    <div>
+                      {/* Realistic Photostrip Mockup Preview */}
+                      <div className="relative w-full h-48 rounded-2xl overflow-hidden bg-gradient-to-b from-clay-paper/30 to-clay-paper/70 mb-3 border border-clay-paper/80 flex items-center justify-center p-2">
+                        <div className="relative h-full w-24 rounded-[3px] shadow-[0_8px_20px_-4px_rgba(50,25,30,0.25)] ring-1 ring-black/10 overflow-hidden bg-white -rotate-1 group-hover:rotate-0 transition-transform duration-300">
+                          <Image
+                            src={st.sampleImage}
+                            alt={st.title}
+                            fill
+                            className="object-cover"
+                            sizes="120px"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/10 to-white/20 pointer-events-none" />
+                        </div>
+                      </div>
+
+                      <div className="flex items-center justify-between mb-1">
+                        <span className="font-bold text-xs text-clay-wine">{st.title}</span>
+                        {isSelected && <Check className="w-3.5 h-3.5 text-clay-terracotta" />}
+                      </div>
+                      <p className="text-[11px] text-clay-brown-muted leading-snug">{st.desc}</p>
                     </div>
-                    <p className="text-[11px] text-clay-brown-muted leading-snug">{st.desc}</p>
-                    <p className="text-[10px] font-mono font-bold text-clay-terracotta mt-2.5">{st.pricing}</p>
+
+                    <div className="mt-3 pt-2 border-t border-clay-paper/60">
+                      <p className="text-[10px] font-mono font-bold text-clay-terracotta">{st.pricing}</p>
+                    </div>
                   </button>
                 );
               })}
+            </div>
+          </div>
+
+          {/* Customer Preferred Layout Selection (from user's layout sheet) */}
+          <div className="bg-clay-cream rounded-4xl p-5 sm:p-6 border border-clay-paper shadow-clay space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+              <div>
+                <label className="font-bold text-sm text-clay-wine block">
+                  2. Choose Preferred Layout
+                </label>
+                <p className="text-xs text-clay-brown-muted">
+                  Select your favorite photostrip or collage arrangement
+                </p>
+              </div>
+
+              <span className="text-[11px] font-bold px-3 py-1 rounded-full bg-clay-paper text-clay-wine border border-clay-paper w-fit">
+                📐 Studio Layout Selection
+              </span>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5">
+              {PHOTOSTRIP_LAYOUTS.map((lay) => {
+                const isSelected = (spec.photostripLayout || '4-Photo Vertical') === lay.id;
+                return (
+                  <button
+                    key={lay.id}
+                    type="button"
+                    onClick={() => onSpecChange({ ...spec, photostripLayout: lay.id })}
+                    className={`p-3 rounded-2xl border text-center transition-all flex flex-col items-center justify-between ${
+                      isSelected
+                        ? 'border-clay-terracotta bg-clay-pink-soft ring-2 ring-clay-terracotta/40 shadow-sm'
+                        : 'border-clay-paper bg-clay-milk hover:bg-clay-paper text-clay-brown'
+                    }`}
+                  >
+                    <span className="text-[10px] font-bold px-1.5 py-0.5 rounded-full bg-clay-paper text-clay-wine mb-1.5">
+                      {lay.badge}
+                    </span>
+                    <span className="text-xs font-bold leading-tight text-clay-wine mb-1">
+                      {lay.title}
+                    </span>
+                    <span className="text-[10px] text-clay-brown-muted font-mono">
+                      {lay.slots} photo{lay.slots > 1 ? 's' : ''}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Visual Layout Reference Guide Sheet */}
+            <div className="p-3.5 rounded-3xl bg-clay-milk border border-clay-paper flex flex-col sm:flex-row items-center gap-3.5">
+              <div className="relative w-20 h-20 rounded-2xl overflow-hidden border border-clay-paper/80 flex-shrink-0 bg-white shadow-sm">
+                <Image
+                  src="/images/samples/photostrip-layouts.png"
+                  alt="Dxlea Photostrip Layout Reference Guide"
+                  fill
+                  className="object-contain p-1"
+                />
+              </div>
+              <div className="text-center sm:text-left">
+                <span className="font-bold text-xs text-clay-wine block">
+                  Studio Layout Guide Sheet
+                </span>
+                <p className="text-[11px] text-clay-brown-muted mt-0.5">
+                  Available in classic vertical strips (3, 4, 5 cuts) and collage grids (2×2, 3-wide, dual split). Staff will format your photos to match your chosen layout perfectly.
+                </p>
+              </div>
             </div>
           </div>
 

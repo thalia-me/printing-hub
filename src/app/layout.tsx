@@ -1,19 +1,14 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { Fraunces, Plus_Jakarta_Sans } from 'next/font/google';
+import { Poppins } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import { ShieldCheck } from 'lucide-react';
 
-const fraunces = Fraunces({
+const poppins = Poppins({
+  weight: ['300', '400', '500', '600', '700', '800'],
   subsets: ['latin'],
-  variable: '--font-fraunces',
-  display: 'swap',
-});
-
-const plusJakarta = Plus_Jakarta_Sans({
-  subsets: ['latin'],
-  variable: '--font-jakarta',
+  variable: '--font-poppins',
   display: 'swap',
 });
 
@@ -28,7 +23,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${fraunces.variable} ${plusJakarta.variable}`}>
+    <html lang="en" className={`${poppins.variable} font-sans`}>
       <body className="font-sans min-h-screen flex flex-col bg-clay-sage text-clay-brown antialiased selection:bg-clay-pink selection:text-clay-brown">
         <Navbar />
         <main className="flex-1 w-full max-w-5xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-8">

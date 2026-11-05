@@ -31,8 +31,9 @@ const config: Config = {
         },
       },
       fontFamily: {
-        serif: ['var(--font-fraunces)', 'Georgia', 'serif'],
-        sans: ['var(--font-jakarta)', 'system-ui', 'sans-serif'],
+        sans: ['var(--font-poppins)', 'system-ui', 'sans-serif'],
+        serif: ['var(--font-poppins)', 'sans-serif'],
+        poppins: ['var(--font-poppins)', 'sans-serif'],
       },
       borderRadius: {
         '4xl': '2rem',

@@ -29,7 +29,13 @@ export interface PhotoPrintSpec {
     | 'S2: Film Strip Black Border (4 photos)'
     | 'S3: Movie Ticket Header (3 photos)';
   photostripQuantity?: '1 pc' | '2 pcs' | '3 pcs' | '4 pcs' | '6 pcs';
-  photostripLayout?: '3-Photo Vertical' | '4-Photo Vertical' | '2x2 Grid' | 'Polaroid Dual';
+  photostripLayout?: 
+    | '3-Photo Vertical' 
+    | '4-Photo Vertical' 
+    | '5-Photo Vertical'
+    | '2x2 Grid Collage' 
+    | '3-Photo Wide Collage'
+    | '2-Photo Split Frame';
   finish: 'Glossy' | 'Matte' | 'Satin / Rough Matte';
   border: 'No Border' | 'White Border';
   copies: number;
