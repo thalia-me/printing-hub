@@ -190,27 +190,73 @@ export default function DocumentServiceForm({
           </div>
         </div>
 
-        {/* Page Count */}
-        <div className="bg-clay-cream rounded-4xl p-6 border border-clay-paper shadow-clay space-y-3">
-          <label className="font-serif font-bold text-sm text-clay-wine block">
-            6. Total Number of Pages
-          </label>
-          <div className="flex items-center gap-3">
-            <input
-              type="number"
-              min="1"
-              value={spec.pageCount}
-              onChange={(e) => onSpecChange({ ...spec, pageCount: Math.max(1, parseInt(e.target.value) || 1) })}
-              className="w-24 bg-clay-milk border border-clay-paper rounded-2xl px-3.5 py-2 text-clay-wine font-mono font-bold text-base focus:outline-none focus:border-clay-terracotta shadow-clay-inner"
-            />
-            <span className="text-xs text-clay-brown-muted">
-              pages to print
-            </span>
+        {/* Page Count & Number of Copies */}
+        <div className="bg-clay-cream rounded-4xl p-6 border border-clay-paper shadow-clay space-y-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="font-serif font-bold text-sm text-clay-wine block mb-2">
+                6. Total Number of Pages
+              </label>
+              <div className="flex items-center gap-3">
+                <input
+                  type="number"
+                  min="1"
+                  value={spec.pageCount}
+                  onChange={(e) => onSpecChange({ ...spec, pageCount: Math.max(1, parseInt(e.target.value) || 1) })}
+                  className="w-24 bg-clay-milk border border-clay-paper rounded-2xl px-3.5 py-2 text-clay-wine font-mono font-bold text-base focus:outline-none focus:border-clay-terracotta shadow-clay-inner"
+                />
+                <span className="text-xs text-clay-brown-muted">
+                  page{spec.pageCount > 1 ? 's' : ''} per set
+                </span>
+              </div>
+            </div>
+
+            <div>
+              <label className="font-serif font-bold text-sm text-clay-wine block mb-2">
+                Number of Copies / Sets
+              </label>
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => onSpecChange({ ...spec, copies: Math.max(1, (spec.copies || 1) - 1) })}
+                  className="w-9 h-9 rounded-full bg-clay-paper text-clay-wine font-bold text-lg flex items-center justify-center hover:bg-clay-mustard-light active:scale-95 transition-all shadow-sm"
+                  aria-label="Decrease copies"
+                >
+                  -
+                </button>
+                <input
+                  type="number"
+                  min="1"
+                  value={spec.copies || 1}
+                  onChange={(e) => onSpecChange({ ...spec, copies: Math.max(1, parseInt(e.target.value) || 1) })}
+                  className="w-16 bg-clay-milk border border-clay-paper rounded-2xl px-2 py-2 text-center text-clay-wine font-mono font-bold text-base focus:outline-none focus:border-clay-terracotta shadow-clay-inner"
+                />
+                <button
+                  type="button"
+                  onClick={() => onSpecChange({ ...spec, copies: (spec.copies || 1) + 1 })}
+                  className="w-9 h-9 rounded-full bg-clay-paper text-clay-wine font-bold text-lg flex items-center justify-center hover:bg-clay-mustard-light active:scale-95 transition-all shadow-sm"
+                  aria-label="Increase copies"
+                >
+                  +
+                </button>
+                <span className="text-xs text-clay-brown-muted font-medium ml-1">
+                  {(spec.copies || 1) > 1 ? 'copies' : 'copy'}
+                </span>
+              </div>
+            </div>
           </div>
-          <p className="text-[11px] text-clay-brown-muted flex items-center gap-1">
-            <span className="text-clay-terracotta font-bold">Auto-Count:</span>
-            Automatic na bibilangin ang pages pag nag-upload ng PDF sa Step 3!
-          </p>
+
+          <div className="pt-2 border-t border-clay-paper/60 flex flex-wrap items-center justify-between gap-2 text-[11px] text-clay-brown-muted">
+            <p className="flex items-center gap-1">
+              <span className="text-clay-terracotta font-bold">Auto-Count:</span>
+              Automatic na bibilangin ang pages pag nag-upload ng PDF sa Step 3!
+            </p>
+            {(spec.copies || 1) > 1 && (
+              <p className="font-mono text-clay-wine font-bold">
+                Total to print: {spec.pageCount * (spec.copies || 1)} pages
+              </p>
+            )}
+          </div>
         </div>
       </div>
 

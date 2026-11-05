@@ -33,3 +33,4 @@ export async function detectTotalPages(files: File[]): Promise<number> {
 
   return Math.max(1, totalPages);
 }
+

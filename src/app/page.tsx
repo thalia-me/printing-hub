@@ -743,22 +743,39 @@ export default function HomePage() {
                     <FileText className="w-4 h-4 text-clay-wine flex-shrink-0" />
                     <div>
                       <p className="font-serif font-bold text-xs text-clay-wine">
-                        Document Pages: <span className="font-mono text-clay-terracotta">{docSpec.pageCount} page{docSpec.pageCount > 1 ? 's' : ''} to print</span>
+                        Document Pages: <span className="font-mono text-clay-terracotta">{docSpec.pageCount} page{docSpec.pageCount > 1 ? 's' : ''}</span>
+                        {(docSpec.copies || 1) > 1 && (
+                          <span className="text-clay-brown text-[11px] ml-1.5 font-normal">
+                            × {docSpec.copies} copies = <strong className="font-mono text-clay-wine font-bold">{docSpec.pageCount * (docSpec.copies || 1)} pages to print</strong>
+                          </span>
+                        )}
                       </p>
                       <p className="text-[11px] text-clay-brown-muted">
-                        Kusa itong binibilang kapag nag-upload ka ng PDF o image file. Pwede mo rin i-adjust kung kinakailangan.
+                        Kusa itong binibilang kapag nag-upload ka ng PDF o image file. Pwede mo ring i-adjust ang pages at copies.
                       </p>
                     </div>
                   </div>
-                  <div className="flex items-center gap-2 bg-clay-milk px-3.5 py-2 rounded-2xl border border-clay-paper shadow-clay-inner self-start sm:self-auto">
-                    <label className="text-[11px] font-serif font-bold text-clay-wine whitespace-nowrap">Pages:</label>
-                    <input
-                      type="number"
-                      min="1"
-                      value={docSpec.pageCount}
-                      onChange={(e) => setDocSpec(prev => ({ ...prev, pageCount: Math.max(1, parseInt(e.target.value) || 1) }))}
-                      className="w-16 bg-white px-2 py-1 rounded-xl border border-clay-paper text-center font-mono font-bold text-xs text-clay-wine focus:outline-none focus:border-clay-terracotta"
-                    />
+                  <div className="flex items-center gap-2.5 self-start sm:self-auto flex-wrap">
+                    <div className="flex items-center gap-1.5 bg-clay-milk px-3 py-1.5 rounded-2xl border border-clay-paper shadow-clay-inner">
+                      <label className="text-[11px] font-serif font-bold text-clay-wine whitespace-nowrap">Pages:</label>
+                      <input
+                        type="number"
+                        min="1"
+                        value={docSpec.pageCount}
+                        onChange={(e) => setDocSpec(prev => ({ ...prev, pageCount: Math.max(1, parseInt(e.target.value) || 1) }))}
+                        className="w-14 bg-white px-1.5 py-1 rounded-xl border border-clay-paper text-center font-mono font-bold text-xs text-clay-wine focus:outline-none focus:border-clay-terracotta"
+                      />
+                    </div>
+                    <div className="flex items-center gap-1.5 bg-clay-milk px-3 py-1.5 rounded-2xl border border-clay-paper shadow-clay-inner">
+                      <label className="text-[11px] font-serif font-bold text-clay-wine whitespace-nowrap">Copies:</label>
+                      <input
+                        type="number"
+                        min="1"
+                        value={docSpec.copies || 1}
+                        onChange={(e) => setDocSpec(prev => ({ ...prev, copies: Math.max(1, parseInt(e.target.value) || 1) }))}
+                        className="w-14 bg-white px-1.5 py-1 rounded-xl border border-clay-paper text-center font-mono font-bold text-xs text-clay-wine focus:outline-none focus:border-clay-terracotta"
+                      />
+                    </div>
                   </div>
                 </div>
               )}

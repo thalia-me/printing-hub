@@ -359,6 +359,38 @@ export default function IdPictureForm({
             </div>
           </div>
         )}
+
+        {/* Quantity / Sets */}
+        <div className="pt-3 border-t border-clay-paper flex items-center justify-between">
+          <div>
+            <p className="font-serif font-bold text-xs text-clay-wine">Number of Packages / Sets</p>
+            <p className="text-[11px] text-clay-brown-muted">Order multiple printed sets of this ID package</p>
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => onSpecChange({ ...spec, copies: Math.max(1, (spec.copies || 1) - 1) })}
+              className="w-8 h-8 rounded-full bg-clay-paper text-clay-wine font-bold text-base flex items-center justify-center hover:bg-clay-mustard-light active:scale-95 transition-all"
+              aria-label="Decrease sets"
+            >
+              -
+            </button>
+            <span className="w-8 text-center font-mono font-bold text-clay-wine text-sm">
+              {spec.copies || 1}
+            </span>
+            <button
+              type="button"
+              onClick={() => onSpecChange({ ...spec, copies: (spec.copies || 1) + 1 })}
+              className="w-8 h-8 rounded-full bg-clay-paper text-clay-wine font-bold text-base flex items-center justify-center hover:bg-clay-mustard-light active:scale-95 transition-all"
+              aria-label="Increase sets"
+            >
+              +
+            </button>
+            <span className="text-xs text-clay-brown-muted ml-1">
+              {(spec.copies || 1) > 1 ? 'sets' : 'set'}
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   );
