@@ -101,10 +101,12 @@ export default function CheckoutSummary({
             onChange={(e) => onPickupTimeChange(e.target.value)}
             className="w-full bg-clay-milk border border-clay-paper rounded-2xl px-3 py-2.5 text-xs text-clay-brown focus:outline-none focus:border-clay-terracotta shadow-clay-inner font-medium"
           >
+            <option value="Walk-in (Waiting at Store)">Walk-in (Waiting at Store)</option>
             <option value="In 30-45 Minutes (Express)">In 30-45 Minutes (Express)</option>
             <option value="Today within 2-3 Hours">Today within 2-3 Hours</option>
             <option value="Today before 6:00 PM Close">Today before 6:00 PM Close</option>
-            <option value="Tomorrow Morning (9:00 AM)">Tomorrow Morning (9:00 AM)</option>
+            <option value="Tomorrow Morning (9:00 AM - 12:00 PM)">Tomorrow Morning (9:00 AM - 12:00 PM)</option>
+            <option value="Tomorrow Afternoon">Tomorrow Afternoon</option>
           </select>
         </div>
 

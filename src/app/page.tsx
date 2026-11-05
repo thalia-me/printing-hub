@@ -73,7 +73,7 @@ export default function HomePage() {
   const [customerName, setCustomerName] = useState('');
   const [customerPhone, setCustomerPhone] = useState('');
   const [customerEmail, setCustomerEmail] = useState('');
-  const [pickupTime, setPickupTime] = useState('In 30-45 Minutes (Express)');
+  const [pickupTime, setPickupTime] = useState('Walk-in (Waiting at Store)');
   const [notes, setNotes] = useState('');
   const [isRush, setIsRush] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -881,6 +881,7 @@ export default function HomePage() {
                     onChange={(e) => setPickupTime(e.target.value)}
                     className="w-full bg-clay-milk border border-clay-paper rounded-2xl px-3.5 py-3 text-xs text-clay-brown focus:outline-none focus:border-clay-terracotta shadow-clay-inner font-medium"
                   >
+                    <option value="Walk-in (Waiting at Store)">Walk-in (Waiting at Store)</option>
                     <option value="In 30-45 Minutes (Express)">In 30-45 Minutes (Express)</option>
                     <option value="Today within 2-3 Hours">Today within 2-3 Hours</option>
                     <option value="Today before 6:00 PM Close">Today before 6:00 PM Close</option>

@@ -534,8 +534,14 @@ export default function AdminDashboardPage() {
                       </p>
                     </td>
 
-                    <td className="py-3.5 px-4 text-clay-brown-muted">
-                      {order.pickupTime || 'Standard'}
+                    <td className="py-3.5 px-4 text-clay-brown">
+                      {order.pickupTime?.includes('Walk-in') ? (
+                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-clay-terracotta/15 text-clay-terracotta text-xs font-bold whitespace-nowrap">
+                          🚶 Walk-in
+                        </span>
+                      ) : (
+                        <span className="text-clay-brown-muted text-xs">{order.pickupTime || 'Standard'}</span>
+                      )}
                     </td>
 
                     <td className="py-3.5 px-4 font-mono font-bold text-clay-wine">
