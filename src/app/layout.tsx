@@ -23,8 +23,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${poppins.variable} font-sans`}>
-      <body className="font-sans min-h-screen flex flex-col bg-clay-sage text-clay-brown antialiased selection:bg-clay-pink selection:text-clay-brown">
+    <html lang="en" className={`${poppins.variable} font-poppins`}>
+      <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link
+          href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body className="font-poppins min-h-screen flex flex-col bg-clay-sage text-clay-brown antialiased selection:bg-clay-pink selection:text-clay-brown">
         <Navbar />
         <main className="flex-1 w-full max-w-5xl mx-auto px-3 sm:px-6 lg:px-8 py-6 sm:py-8">
           {children}

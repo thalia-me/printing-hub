@@ -31,9 +31,9 @@ const config: Config = {
         },
       },
       fontFamily: {
-        sans: ['var(--font-poppins)', 'system-ui', 'sans-serif'],
-        serif: ['var(--font-poppins)', 'sans-serif'],
-        poppins: ['var(--font-poppins)', 'sans-serif'],
+        sans: ['Poppins', 'var(--font-poppins)', 'system-ui', 'sans-serif'],
+        serif: ['Poppins', 'var(--font-poppins)', 'sans-serif'],
+        poppins: ['Poppins', 'var(--font-poppins)', 'sans-serif'],
       },
       borderRadius: {
         '4xl': '2rem',
