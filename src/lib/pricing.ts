@@ -164,13 +164,9 @@ export function calculateDocPrice(spec: DocumentPrintSpec): number {
   let bindingCost = 0;
   if (spec.binding === 'Corner Staple' || spec.binding === 'Book Fold Staple') {
     bindingCost = 5;
-  } else if (spec.binding === 'Spiral / Ring Bind') {
-    bindingCost = 45;
-  } else if (spec.binding === 'Hardbound') {
-    bindingCost = 180;
   }
 
-  const formattingFee = spec.needsFormatting ? 20 : 0;
+  const formattingFee = spec.needsFormatting ? 15 : 0;
   return (baseCost + bindingCost + formattingFee) * Math.max(1, spec.copies);
 }
 

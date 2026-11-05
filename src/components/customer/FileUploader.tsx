@@ -3,6 +3,7 @@
 import React, { useRef, useState } from 'react';
 import { UploadCloud, X, File, Sparkles, CheckCircle2, Loader2, Cloud, AlertCircle } from 'lucide-react';
 import { UploadedFileItem } from '@/types';
+import { detectTotalPages } from '@/lib/pdfUtils';
 
 interface FileUploaderProps {
   files: UploadedFileItem[];
@@ -11,6 +12,7 @@ interface FileUploaderProps {
   multiple?: boolean;
   maxFiles?: number;
   label?: string;
+  onPageCountDetected?: (pages: number) => void;
 }
 
 export default function FileUploader({
@@ -19,7 +21,8 @@ export default function FileUploader({
   accept = 'image/jpeg,image/png,image/webp,image/heic,.heic,.heif,.jpg,.jpeg,.png,.webp,.pdf,application/pdf',
   multiple = true,
   maxFiles = 10,
-  label = 'Upload photos or document files'
+  label = 'Upload photos or document files',
+  onPageCountDetected
 }: FileUploaderProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -42,6 +45,13 @@ export default function FileUploader({
     });
 
     if (filesToUpload.length === 0) return;
+
+    // Auto-detect total pages from uploaded files (PDFs and images)
+    if (onPageCountDetected) {
+      detectTotalPages(filesToUpload)
+        .then((pages) => onPageCountDetected(pages))
+        .catch((err) => console.warn('[FileUploader] Auto page count failed:', err));
+    }
 
     // Create placeholder items with instant local previews
     const newItems: UploadedFileItem[] = filesToUpload.map((file) => ({

@@ -207,6 +207,10 @@ export default function DocumentServiceForm({
               pages to print
             </span>
           </div>
+          <p className="text-[11px] text-clay-brown-muted flex items-center gap-1">
+            <span className="text-clay-terracotta font-bold">Auto-Count:</span>
+            Automatic na bibilangin ang pages pag nag-upload ng PDF sa Step 3!
+          </p>
         </div>
       </div>
 
@@ -217,12 +221,10 @@ export default function DocumentServiceForm({
           7. Binding & Finishing (Optional)
         </label>
         
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+        <div className="grid grid-cols-2 gap-3 max-w-sm">
           {[
             { id: 'None' as const, label: 'Loose Sheets', price: 'Free' },
             { id: 'Corner Staple' as const, label: 'Corner Staple', price: '+₱5.00' },
-            { id: 'Spiral / Ring Bind' as const, label: 'Spiral Bind', price: '+₱45.00' },
-            { id: 'Hardbound' as const, label: 'Hardbound', price: '+₱180.00' },
           ].map((b) => {
             const isSelected = spec.binding === b.id;
             return (
@@ -247,7 +249,7 @@ export default function DocumentServiceForm({
         <div className="pt-3 border-t border-clay-paper flex items-center justify-between">
           <div>
             <p className="font-serif font-bold text-xs text-clay-wine">File Formatting / Layout Assistance</p>
-            <p className="text-[11px] text-clay-brown-muted">Check this if your file needs margin, layout, or font adjustments (+₱20)</p>
+            <p className="text-[11px] text-clay-brown-muted">Check this if your file needs margin, layout, or font adjustments (+₱15)</p>
           </div>
           <input
             type="checkbox"

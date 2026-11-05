@@ -114,7 +114,7 @@ export default function HomePage() {
     duplex: 'Single-Sided',
     binding: 'None',
     needsFormatting: false,
-    pageCount: 5,
+    pageCount: 1,
     copies: 1,
   });
 
@@ -711,6 +711,11 @@ export default function HomePage() {
               <FileUploader
                 files={getCurrentFiles()}
                 onChange={setCurrentFiles}
+                onPageCountDetected={
+                  activeTab === 'DOCUMENT'
+                    ? (pages) => setDocSpec((prev) => ({ ...prev, pageCount: pages }))
+                    : undefined
+                }
                 accept={
                   activeTab === 'PHOTO' || activeTab === 'ID_PICTURE'
                     ? 'image/*'
@@ -730,6 +735,33 @@ export default function HomePage() {
                     : 'Upload Reference Images, Designs, or Documents'
                 }
               />
+
+              {/* Document Auto Page Count Indicator & Instant Adjuster */}
+              {activeTab === 'DOCUMENT' && (
+                <div className="p-4 rounded-3xl bg-clay-sage/20 border border-clay-sage/40 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div className="flex items-center gap-2.5">
+                    <FileText className="w-4 h-4 text-clay-wine flex-shrink-0" />
+                    <div>
+                      <p className="font-serif font-bold text-xs text-clay-wine">
+                        Document Pages: <span className="font-mono text-clay-terracotta">{docSpec.pageCount} page{docSpec.pageCount > 1 ? 's' : ''} to print</span>
+                      </p>
+                      <p className="text-[11px] text-clay-brown-muted">
+                        Kusa itong binibilang kapag nag-upload ka ng PDF o image file. Pwede mo rin i-adjust kung kinakailangan.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-2 bg-clay-milk px-3.5 py-2 rounded-2xl border border-clay-paper shadow-clay-inner self-start sm:self-auto">
+                    <label className="text-[11px] font-serif font-bold text-clay-wine whitespace-nowrap">Pages:</label>
+                    <input
+                      type="number"
+                      min="1"
+                      value={docSpec.pageCount}
+                      onChange={(e) => setDocSpec(prev => ({ ...prev, pageCount: Math.max(1, parseInt(e.target.value) || 1) }))}
+                      className="w-16 bg-white px-2 py-1 rounded-xl border border-clay-paper text-center font-mono font-bold text-xs text-clay-wine focus:outline-none focus:border-clay-terracotta"
+                    />
+                  </div>
+                </div>
+              )}
 
               {/* Service Upload Guideline Note */}
               <div className="p-4 rounded-3xl bg-clay-milk border border-clay-paper text-xs text-clay-brown space-y-1">
