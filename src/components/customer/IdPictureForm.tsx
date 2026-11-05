@@ -152,10 +152,10 @@ export default function IdPictureForm({
               </div>
 
               {/* The exact border cutline grid */}
-              <div className="border border-black bg-white overflow-hidden shadow-xs">
+              <div className="bg-black p-[1px] shadow-sm overflow-hidden mx-auto">
                 {/* Package 4 (6pcs 2x2) - EXACT match to user reference screenshot */}
                 {spec.packageType === 'Package 4 (6pcs 2x2) - ₱50' && (
-                  <div className="grid grid-cols-3 divide-x divide-y divide-black">
+                  <div className="grid grid-cols-3 gap-[1px]">
                     {Array.from({ length: 6 }).map((_, i) => (
                       <div key={`p4-${i}`} className="relative aspect-square overflow-hidden bg-white">
                         <Image src={photoSrc} alt="2x2 ID Photo" fill className="object-cover object-top" sizes="120px" priority />
@@ -166,15 +166,15 @@ export default function IdPictureForm({
 
                 {/* Package 1 (2pcs 2x2 & 4pcs 1x1) */}
                 {spec.packageType === 'Package 1 (2pcs 2x2 & 4pcs 1x1) - ₱50' && (
-                  <div className="divide-y divide-black">
-                    <div className="grid grid-cols-2 divide-x divide-black">
+                  <div className="flex flex-col gap-[1px]">
+                    <div className="grid grid-cols-2 gap-[1px]">
                       {[0, 1].map((i) => (
                         <div key={`p1-2x2-${i}`} className="relative aspect-square overflow-hidden bg-white">
                           <Image src={photoSrc} alt="2x2 ID Photo" fill className="object-cover object-top" sizes="160px" priority />
                         </div>
                       ))}
                     </div>
-                    <div className="grid grid-cols-4 divide-x divide-black">
+                    <div className="grid grid-cols-4 gap-[1px]">
                       {[0, 1, 2, 3].map((i) => (
                         <div key={`p1-1x1-${i}`} className="relative aspect-square overflow-hidden bg-white">
                           <Image src={photoSrc} alt="1x1 ID Photo" fill className="object-cover object-top" sizes="80px" priority />
@@ -186,15 +186,15 @@ export default function IdPictureForm({
 
                 {/* Package 2 (4pcs 2x2 & 3pcs 1x1) */}
                 {spec.packageType === 'Package 2 (4pcs 2x2 & 3pcs 1x1) - ₱50' && (
-                  <div className="divide-y divide-black">
-                    <div className="grid grid-cols-2 divide-x divide-y divide-black">
+                  <div className="flex flex-col gap-[1px]">
+                    <div className="grid grid-cols-2 gap-[1px]">
                       {[0, 1, 2, 3].map((i) => (
                         <div key={`p2-2x2-${i}`} className="relative aspect-square overflow-hidden bg-white">
                           <Image src={photoSrc} alt="2x2 ID Photo" fill className="object-cover object-top" sizes="150px" priority />
                         </div>
                       ))}
                     </div>
-                    <div className="grid grid-cols-3 divide-x divide-black">
+                    <div className="grid grid-cols-3 gap-[1px]">
                       {[0, 1, 2].map((i) => (
                         <div key={`p2-1x1-${i}`} className="relative aspect-square overflow-hidden bg-white">
                           <Image src={photoSrc} alt="1x1 ID Photo" fill className="object-cover object-top" sizes="100px" priority />
@@ -206,7 +206,7 @@ export default function IdPictureForm({
 
                 {/* Package 3 (8pcs 1x1) */}
                 {spec.packageType === 'Package 3 (8pcs 1x1) - ₱50' && (
-                  <div className="grid grid-cols-4 divide-x divide-y divide-black">
+                  <div className="grid grid-cols-4 gap-[1px]">
                     {Array.from({ length: 8 }).map((_, i) => (
                       <div key={`p3-${i}`} className="relative aspect-square overflow-hidden bg-white">
                         <Image src={photoSrc} alt="1x1 ID Photo" fill className="object-cover object-top" sizes="80px" priority />
@@ -217,7 +217,7 @@ export default function IdPictureForm({
 
                 {/* Package 5 (6pcs Passport Size) */}
                 {spec.packageType === 'Package 5 (6pcs Passport Size) - ₱65' && (
-                  <div className="grid grid-cols-3 divide-x divide-y divide-black">
+                  <div className="grid grid-cols-3 gap-[1px]">
                     {Array.from({ length: 6 }).map((_, i) => (
                       <div key={`p5-${i}`} className="relative aspect-[35/45] overflow-hidden bg-white">
                         <Image src={photoSrc} alt="Passport ID Photo" fill className="object-cover object-top" sizes="120px" priority />
@@ -228,15 +228,15 @@ export default function IdPictureForm({
 
                 {/* Package 6 (4pcs Passport & 2pcs 2x2) */}
                 {spec.packageType === 'Package 6 (4pcs Passport Size & 2pcs 2x2) - ₱60' && (
-                  <div className="divide-y divide-black">
-                    <div className="grid grid-cols-4 divide-x divide-black">
+                  <div className="flex flex-col gap-[1px]">
+                    <div className="grid grid-cols-4 gap-[1px]">
                       {[0, 1, 2, 3].map((i) => (
                         <div key={`p6-pass-${i}`} className="relative aspect-[35/45] overflow-hidden bg-white">
                           <Image src={photoSrc} alt="Passport ID Photo" fill className="object-cover object-top" sizes="85px" priority />
                         </div>
                       ))}
                     </div>
-                    <div className="grid grid-cols-2 divide-x divide-black">
+                    <div className="grid grid-cols-2 gap-[1px]">
                       {[0, 1].map((i) => (
                         <div key={`p6-2x2-${i}`} className="relative aspect-square overflow-hidden bg-white">
                           <Image src={photoSrc} alt="2x2 ID Photo" fill className="object-cover object-top" sizes="160px" priority />
@@ -248,15 +248,15 @@ export default function IdPictureForm({
 
                 {/* Package 7 (3pcs Passport & 6pcs 1x1) */}
                 {spec.packageType === 'Package 7 (3pcs Passport Size & 6pcs 1x1) - ₱75' && (
-                  <div className="divide-y divide-black">
-                    <div className="grid grid-cols-3 divide-x divide-black">
+                  <div className="flex flex-col gap-[1px]">
+                    <div className="grid grid-cols-3 gap-[1px]">
                       {[0, 1, 2].map((i) => (
                         <div key={`p7-pass-${i}`} className="relative aspect-[35/45] overflow-hidden bg-white">
                           <Image src={photoSrc} alt="Passport ID Photo" fill className="object-cover object-top" sizes="110px" priority />
                         </div>
                       ))}
                     </div>
-                    <div className="grid grid-cols-6 divide-x divide-black">
+                    <div className="grid grid-cols-6 gap-[1px]">
                       {[0, 1, 2, 3, 4, 5].map((i) => (
                         <div key={`p7-1x1-${i}`} className="relative aspect-square overflow-hidden bg-white">
                           <Image src={photoSrc} alt="1x1 ID Photo" fill className="object-cover object-top" sizes="60px" priority />
@@ -268,7 +268,7 @@ export default function IdPictureForm({
 
                 {/* Package 8 (6pcs 1.5x1.5) */}
                 {spec.packageType === 'Package 8 (6pcs 1.5x1.5) - ₱50' && (
-                  <div className="grid grid-cols-3 divide-x divide-y divide-black">
+                  <div className="grid grid-cols-3 gap-[1px]">
                     {Array.from({ length: 6 }).map((_, i) => (
                       <div key={`p8-${i}`} className="relative aspect-square overflow-hidden bg-white">
                         <Image src={photoSrc} alt="1.5x1.5 ID Photo" fill className="object-cover object-top" sizes="120px" priority />
